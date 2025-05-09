@@ -16,6 +16,7 @@ public class Program {
 
         // Création du formateur avec virgule comme séparateur décimal
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.FRANCE);
+        nf.setGroupingUsed(false);
         nf.setMinimumFractionDigits(2);
         nf.setMaximumFractionDigits(2);
 
