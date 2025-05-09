@@ -1,3 +1,7 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+
 public class Manager extends Employee {
 
     public Manager(double fixedSalary) {
@@ -7,9 +11,20 @@ public class Manager extends Employee {
     @Override
     public double calculateBonus(Department department) {
         if (department.reachedTarget()) {
-            return Math.ceil(getFixedSalary() * 0.20);
+            return BigDecimal.valueOf(getFixedSalary())
+                    .multiply(BigDecimal.valueOf(0.20))
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
         } else {
-            return 0.00;
+            return 0.0;
         }
+    }
+
+    @Override
+    public double calculateTotalSalary(Department department) {
+        BigDecimal total = BigDecimal.valueOf(getFixedSalary())
+                .add(BigDecimal.valueOf(calculateBonus(department)))
+                .setScale(2, RoundingMode.HALF_UP);
+        return total.doubleValue();
     }
 }

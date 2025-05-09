@@ -1,3 +1,6 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Employee {
     public double fixedSalary;
 
@@ -18,6 +21,9 @@ public class Employee {
     }
 
     public double calculateTotalSalary(Department department) {
-        return fixedSalary + calculateBonus(department);
+        BigDecimal total = BigDecimal.valueOf(getFixedSalary())
+                .add(BigDecimal.valueOf(calculateBonus(department)))
+                .setScale(2, RoundingMode.HALF_UP);
+        return total.doubleValue();
     }
 }
