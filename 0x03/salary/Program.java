@@ -1,3 +1,6 @@
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class Program {
     public static void main(String[] args) {
         Department engineeringDepartment = new Department(1000, 1100);
@@ -11,34 +14,23 @@ public class Program {
         Employee documentationEmployee2 = new Employee(3000);
         Manager documentationManager = new Manager(4980);
 
-        System.out.printf("Fixed Salary: %.2f - Total Salary: %.2f - Bonus Amount: %.2f\n",
-                engineeringEmployee1.getFixedSalary(),
-                engineeringEmployee1.calculateTotalSalary(engineeringDepartment),
-                engineeringEmployee1.calculateBonus(engineeringDepartment));
+        // Création du formateur avec virgule comme séparateur décimal
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.FRANCE);
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
 
-        System.out.printf("Fixed Salary: %.2f - Total Salary: %.2f - Bonus Amount: %.2f\n",
-                engineeringEmployee2.getFixedSalary(),
-                engineeringEmployee2.calculateTotalSalary(engineeringDepartment),
-                engineeringEmployee2.calculateBonus(engineeringDepartment));
+        printFormatted(engineeringEmployee1, engineeringDepartment, nf);
+        printFormatted(engineeringEmployee2, engineeringDepartment, nf);
+        printFormatted(engineeringManager, engineeringDepartment, nf);
+        printFormatted(documentationEmployee1, documentationDepartment, nf);
+        printFormatted(documentationEmployee2, documentationDepartment, nf);
+        printFormatted(documentationManager, documentationDepartment, nf);
+    }
 
-        System.out.printf("Fixed Salary: %.2f - Total Salary: %.2f - Bonus Amount: %.2f\n",
-                engineeringManager.getFixedSalary(),
-                engineeringManager.calculateTotalSalary(engineeringDepartment),
-                engineeringManager.calculateBonus(engineeringDepartment));
-
-        System.out.printf("Fixed Salary: %.2f - Total Salary: %.2f - Bonus Amount: %.2f\n",
-                documentationEmployee1.getFixedSalary(),
-                documentationEmployee1.calculateTotalSalary(documentationDepartment),
-                documentationEmployee1.calculateBonus(documentationDepartment));
-
-        System.out.printf("Fixed Salary: %.2f - Total Salary: %.2f - Bonus Amount: %.2f\n",
-                documentationEmployee2.getFixedSalary(),
-                documentationEmployee2.calculateTotalSalary(documentationDepartment),
-                documentationEmployee2.calculateBonus(documentationDepartment));
-
-        System.out.printf("Fixed Salary: %.2f - Total Salary: %.2f - Bonus Amount: %.2f\n",
-                documentationManager.getFixedSalary(),
-                documentationManager.calculateTotalSalary(documentationDepartment),
-                documentationManager.calculateBonus(documentationDepartment));
+    private static void printFormatted(Employee emp, Department dept, NumberFormat nf) {
+        System.out.printf("Fixed Salary: %s - Total Salary: %s - Bonus Amount: %s\n",
+                nf.format(emp.getFixedSalary()),
+                nf.format(emp.calculateTotalSalary(dept)),
+                nf.format(emp.calculateBonus(dept)));
     }
 }

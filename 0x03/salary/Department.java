@@ -13,7 +13,7 @@ public class Department {
         return this.targetValue;
     }
 
-    // Getter for achievedTargerValue
+    // Getter for achievedTargetValue
     public double getAchievedTargetValue() {
         return this.achievedTargetValue;
     }
